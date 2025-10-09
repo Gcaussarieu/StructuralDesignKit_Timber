@@ -257,7 +257,7 @@ namespace StructuralDesignKitLibrary.EC5
 		/// </summary>
 		/// <param name="timberType"></param>
 		/// <param name="b">Rectangular beam width</param>
-		/// <param name="b">Rectangular beam height</param>
+		/// <param name="h">Rectangular beam height</param>
 		/// <returns></returns>
 		public static double Kh_Tension(TimberType timberType, double b, double h)
 		{
@@ -594,8 +594,7 @@ namespace StructuralDesignKitLibrary.EC5
 					break;
 
 				case TimberType.Hardwood:
-					if (supportType == 0) kc90 = 1.25;
-					else kc90 = 1.5;
+					kc90 = 1;
 					break;
 
 				case TimberType.Glulam:

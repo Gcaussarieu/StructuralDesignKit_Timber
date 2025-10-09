@@ -97,7 +97,7 @@ namespace StructuralDesignKitLibrary.CrossSections.Interfaces
         /// Computes the bending stress on Y
         /// </summary>
         /// <param name="BendingMomentY">Bending moment on Y axis in KN.m</param>
-        /// <returns>Noraml stress in N/mm²</returns>
+        /// <returns>Normal stress in N/mm²</returns>
         [Description("Computes the bending stress on Y")]
         double ComputeStressBendingY(double BendingMomentY);
 
@@ -105,7 +105,7 @@ namespace StructuralDesignKitLibrary.CrossSections.Interfaces
         /// Computes the bending stress on Z
         /// </summary>
         /// <param name="BendingMomentZ">Bending moment on Z axis in KN.m</param>
-        /// <returns>Noraml stress in N/mm²</returns>
+        /// <returns>Normal stress in N/mm²</returns>
         [Description("Computes the bending stress on Z")]
         double ComputeStressBendingZ(double BendingMomentZ);
 
@@ -113,7 +113,7 @@ namespace StructuralDesignKitLibrary.CrossSections.Interfaces
         /// Computes the normal stress
         /// </summary>
         /// <param name="NormalForce">Normal force in KN</param>
-        /// <returns>Noraml stress in N/mm²</returns>
+        /// <returns>Normal stress in N/mm²</returns>
         [Description("Computes the normal stress")]
         double ComputeNormalStress(double NormalForce);
 

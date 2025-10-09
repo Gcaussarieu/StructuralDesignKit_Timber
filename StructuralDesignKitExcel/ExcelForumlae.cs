@@ -609,7 +609,7 @@ namespace StructuralDesignKitExcel
 			[ExcelArgument(Description = "fire check?")] bool fireDesign = false)
 		{
 			var mat = ExcelHelpers.GetTimberMaterialFromTag(timberGrade);
-			return EC5_CrossSectionCheck.CompressionAtAnAngleToGrain(SigAlpha_c_d, angleToGrain, mat, Kmod, Ym, kc90 = 1, fireDesign);
+			return EC5_CrossSectionCheck.CompressionAtAnAngleToGrain(SigAlpha_c_d, angleToGrain, mat, Kmod, Ym, kc90, fireDesign);
 		}
 
 
