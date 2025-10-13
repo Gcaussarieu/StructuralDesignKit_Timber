@@ -1,5 +1,4 @@
-﻿using Dlubal.WS.Rfem6.Model;
-using StructuralDesignKitLibrary.Connections.Interface;
+﻿using StructuralDesignKitLibrary.Connections.Interface;
 using StructuralDesignKitLibrary.Connections.SteelTimberShear;
 using StructuralDesignKitLibrary.Connections.TimberTimberShear;
 using StructuralDesignKitLibrary.EC5;
@@ -135,9 +134,24 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the minimum spacing to alongside the grain in mm")]
-		private double DefineA1Min(double angle, double density)
+		private double DefineA1Min(double? angle, double density)
 		{
-			double AngleRad = angle * Math.PI / 180;
+			if (angle == null)
+			{
+				if (Predrilled) return 5 * Diameter;
+				else
+				{
+					if (density <= 420)
+					{
+                        if (Diameter < 5) return 10 * Diameter;
+                        return 12 * Diameter;
+                    }
+                    if (density <= 500) return 15 * Diameter;
+                    else throw new Exception("With characteristic Density > 500kg/m³, nails must be predrilled");
+                }
+			}
+
+			double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
 
 			if (Predrilled)
 			{
@@ -163,9 +177,17 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the minimum spacing perpendicular to grain in mm")]
-		private double DefineA2Min(double angle, double density)
+		private double DefineA2Min(double? angle, double density)
 		{
-			double AngleRad = angle * Math.PI / 180;
+			if (angle == null)
+			{
+                if (Predrilled) return 4 * Diameter;
+                if (density <= 420) return 5 * Diameter;
+                if (density <= 500) return 7 * Diameter;
+                else throw new Exception("With characteristic Density > 500kg/m³, nails must be predrilled");
+            }
+
+            double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
 
 			if (Predrilled)
 			{
@@ -190,9 +212,17 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the Minimum spacing to loaded end in mm")]
-		private double DefineA3tMin(double angle, double density)
+		private double DefineA3tMin(double? angle, double density)
 		{
-			double AngleRad = angle * Math.PI / 180;
+			if (angle == null)
+			{
+                if (Predrilled) return (7 + 5) * Diameter;
+                if (density <= 420) return (10 + 5) * Diameter;
+                if (density <= 500) return (15 + 5) * Diameter;
+                else throw new Exception("With characteristic Density > 500kg/m³, nails must be predrilled");
+            }
+
+			double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
 
 			if (Predrilled)
 			{
@@ -217,7 +247,7 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the Minimum spacing to unloaded end in mm")]
-		private double DefineA3cMin(double angle, double density)
+		private double DefineA3cMin(double? angle, double density)
 		{
 			if (Predrilled)
 			{
@@ -241,9 +271,29 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the Minimum spacing to loaded edge in mm")]
-		private double DefineA4tMin(double angle, double density)
+		private double DefineA4tMin(double? angle, double density)
 		{
-			double AngleRad = angle * Math.PI / 180;
+            if (angle == null)
+            {
+                if (Predrilled)
+                {
+                    if (Diameter < 5) return (3 + 2) * Diameter;
+                    return (3 + 4) * Diameter;
+                }
+                if (density <= 420)
+                {
+                    if (Diameter < 5) return (5 + 2) * Diameter;
+                    return (5 + 5) * Diameter;
+                }
+                if (density <= 500)
+                {
+                    if (Diameter < 5) return (7 + 2) * Diameter;
+                    return (7 + 5) * Diameter;
+                }
+                else throw new Exception("With characteristic Density > 500kg/m³, nails must be predrilled");
+            }
+
+            double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
 
 			if (Predrilled)
 			{
@@ -274,7 +324,7 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// </summary>
 		/// <returns></returns>
 		[Description("Define the minimum spacing to unloaded edge in mm")]
-		private double DefineA4cMin(double angle, double density)
+		private double DefineA4cMin(double? angle, double density)
 		{
 			if (Predrilled)
 			{
@@ -530,7 +580,7 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 			}
 		}
 
-		public void ComputeSpacings(double angle, IShearCapacity connection = null)
+		public void ComputeSpacings(double? angle, IShearCapacity connection = null)
 		{
 
 			double density = 0;

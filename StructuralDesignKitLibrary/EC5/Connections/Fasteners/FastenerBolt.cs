@@ -61,10 +61,12 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the minimum spacing to alongside the grain in mm")]
-		private double DefineA1Min(double angle)
+		private double DefineA1Min(double? angle)
 		{
-			double AngleRad = angle * Math.PI / 180;
-			return (4 + Math.Abs(Math.Cos(AngleRad))) * Diameter;
+            if (angle == null) return 5 * Diameter;
+
+            double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
+            return (4 + Math.Abs(Math.Cos(AngleRad))) * Diameter;
 		}
 
 		/// <summary>
@@ -73,7 +75,7 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the minimum spacing perpendicular to grain in mm")]
-		private double DefineA2Min(double angle)
+		private double DefineA2Min(double? angle)
 		{
 			return 4 * Diameter;
 		}
@@ -85,7 +87,7 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the Minimum spacing to loaded end in mm")]
-		private double DefineA3tMin(double angle)
+		private double DefineA3tMin(double? angle)
 		{
 			return Math.Max(7 * Diameter, 80);
 		}
@@ -96,16 +98,18 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the Minimum spacing to unloaded end in mm")]
-		private double DefineA3cMin(double angle)
+		private double DefineA3cMin(double? angle)
 		{
-			//double AngleRad = angle * Math.PI / 180;
-			//if (angle <= 150 && angle < 210) return 4 * Diameter;
-			//else return (1 + 6 * Math.Sin(AngleRad)) * Diameter;
+            //double AngleRad = angle * Math.PI / 180;
+            //if (angle <= 150 && angle < 210) return 4 * Diameter;
+            //else return (1 + 6 * Math.Sin(AngleRad)) * Diameter;
 
-			//fonction modified to represent angle in the first quadrant, going from 90° to 0° 
-			double AngleRad = angle * Math.PI / 180;
-			if (angle < 60 ) return 4 * Diameter;
-			else return (1 + 6 * Math.Sin(AngleRad)) * Diameter;
+            if (angle == null) return 7 * Diameter;
+
+            //fonction modified to represent angle in the first quadrant, going from 90° to 0° 
+            double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
+            if (angle < 60 ) return 4 * Diameter;
+			else return (1 + 6 * Math.Abs(Math.Sin(AngleRad))) * Diameter;
 		}
 
 		/// <summary>
@@ -114,9 +118,10 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// <param name="angle">angle to grain in Degree</param>
 		/// <returns></returns>
 		[Description("Define the Minimum spacing to loaded edge in mm")]
-		private double DefineA4tMin(double angle)
+		private double DefineA4tMin(double? angle)
 		{
-			double AngleRad = angle * Math.PI / 180;
+            if (angle == null) return 4 * Diameter;
+            double AngleRad = Convert.ToDouble(angle) * Math.PI / 180;
 			return Math.Max((2 + 2 * Math.Sin(AngleRad)) * Diameter, 3 * Diameter);
 
 		}
@@ -126,7 +131,7 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		/// </summary>
 		/// <returns></returns>
 		[Description("Define the minimum spacing to unloaded edge in mm")]
-		private double DefineA4cMin()
+		private double DefineA4cMin(double? angle)
 		{
 			return 3 * Diameter;
 		}
@@ -299,14 +304,14 @@ namespace StructuralDesignKitLibrary.Connections.Fasteners
 		}
 
 
-		public void ComputeSpacings(double angle, IShearCapacity connection = null)
+		public void ComputeSpacings(double? angle, IShearCapacity connection = null)
 		{
 			a1min = DefineA1Min(angle);
 			a2min = DefineA2Min(angle);
 			a3tmin = DefineA3tMin(angle);
 			a3cmin = DefineA3cMin(angle);
 			a4tmin = DefineA4tMin(angle);
-			a4cmin = DefineA4cMin();
+			a4cmin = DefineA4cMin(angle);
 		}
 
 	}

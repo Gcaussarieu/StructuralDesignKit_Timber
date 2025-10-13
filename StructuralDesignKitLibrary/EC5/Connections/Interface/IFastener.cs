@@ -117,7 +117,7 @@ namespace StructuralDesignKitLibrary.Connections.Interface
 		void ComputeWithdrawalStrength(IShearCapacity ConnectionType);
 
 
-		void ComputeSpacings(double angle, IShearCapacity connection);
+		void ComputeSpacings(double? angle, IShearCapacity connection);
 
 		/// <summary>
 		/// Compute Kser, the fastener slip modulus in N/mm
