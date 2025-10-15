@@ -42,19 +42,40 @@ namespace StructuralDesignKitLibrary.Connections.SteelTimberShear
 
 			ComputeFailingModes();
 
-			double capacityThinPlate = Math.Min(Capacities[0], Capacities[1]);
-			double capacityThickPlate = Capacities.GetRange(2, 3).Min();
+			//double capacityThinPlate = Math.Min(Capacities[0], Capacities[1]);
+            double capacityThinPlate = Math.Min(Capacities[0], Capacities[1]); //MODES A and B
+            int thinPlateFailureMode = 0;
+            if (Capacities[1] < Capacities[0]) thinPlateFailureMode = 1;
 
-			//case thin plate
-			if (SteelPlateThickness <= 0.5 * Fastener.Diameter) Capacity = capacityThinPlate;
+            //double capacityThickPlate = Capacities.GetRange(2, 3).Min();
+            double capacityThickPlate = Capacities.GetRange(2, 3).Min(); //GET MODES C-D-E
+            int thickPlateFailureMode = 2 + (Capacities.GetRange(2, 3).IndexOf(capacityThickPlate));
 
-			//case thick plate
-			else if (SteelPlateThickness >= Fastener.Diameter) Capacity = capacityThickPlate;
+            //case thin plate
+            //if (SteelPlateThickness <= 0.5 * Fastener.Diameter) Capacity = capacityThinPlate;
+            if (SteelPlateThickness <= 0.5 * Fastener.Diameter)
+            {
+                Capacity = capacityThinPlate;
+                FailureMode = FailureModes[thinPlateFailureMode];
+            }
 
-			//Case interpolation between thin and thick plate
-			else Capacity = Utilities.SDKUtilities.LinearInterpolation(steelPlateThickness, 0.5 * Fastener.Diameter, capacityThinPlate, Fastener.Diameter, capacityThickPlate);
+            //case thick plate
+            //else if (SteelPlateThickness >= Fastener.Diameter) Capacity = capacityThickPlate;
+            else if (SteelPlateThickness >= Fastener.Diameter)
+            {
+                Capacity = capacityThickPlate;
+                FailureMode = FailureModes[thickPlateFailureMode];
+            }
 
-			FailureMode = FailureModes[Capacities.IndexOf(Capacities.Min())];
+            //Case interpolation between thin and thick plate
+            //else Capacity = Utilities.SDKUtilities.LinearInterpolation(steelPlateThickness, 0.5 * Fastener.Diameter, capacityThinPlate, Fastener.Diameter, capacityThickPlate);
+            else
+            {
+                Capacity = Utilities.SDKUtilities.LinearInterpolation(steelPlateThickness, 0.5 * Fastener.Diameter, capacityThinPlate, Fastener.Diameter, capacityThickPlate);
+                FailureMode = "Interpolation between thin mode " + FailureModes[thinPlateFailureMode] + " and thick mode " + FailureModes[thickPlateFailureMode];
+            }
+
+            //FailureMode = FailureModes[Capacities.IndexOf(Capacities.Min())];
 
 			ComputeStiffnesses();
 		}

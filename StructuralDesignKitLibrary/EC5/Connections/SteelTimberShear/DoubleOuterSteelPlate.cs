@@ -49,22 +49,36 @@ namespace StructuralDesignKitLibrary.Connections.SteelTimberShear
             ComputeFailingModes();
 
             double capacityThinPlate = Math.Min(Capacities[0], Capacities[1]);
+            int thinPlateFailureMode = Capacities.GetRange(0, 2).IndexOf(capacityThinPlate);
+
             double capacityThickPlate = Capacities.GetRange(2, 2).Min();
+            int thickPlateFailureMode = 2 + (Capacities.GetRange(2, 2).IndexOf(capacityThickPlate));
 
             //case thin plate
-            if (SteelPlateThickness <= 0.5 * Fastener.Diameter) Capacity = capacityThinPlate;
+            if (SteelPlateThickness <= 0.5 * Fastener.Diameter)
+            {
+                Capacity = capacityThinPlate;
+                FailureMode = FailureModes[thinPlateFailureMode];
+            }
 
             //case thick plate
-            else if (SteelPlateThickness >= Fastener.Diameter) Capacity = capacityThickPlate;
+            else if (SteelPlateThickness >= Fastener.Diameter)
+            {
+                Capacity = capacityThickPlate;
+                FailureMode = FailureModes[thickPlateFailureMode];
+            }
 
             //Case interpolation between thin and thick plate
-            else Capacity = Utilities.SDKUtilities.LinearInterpolation(steelPlateThickness, 0.5 * Fastener.Diameter, capacityThinPlate, Fastener.Diameter, capacityThickPlate);
+            else
+            {
+                Capacity = Utilities.SDKUtilities.LinearInterpolation(steelPlateThickness, 0.5 * Fastener.Diameter, capacityThinPlate, Fastener.Diameter, capacityThickPlate);
+                FailureMode = "Interpolation between thin mode " + FailureModes[thinPlateFailureMode] + " and thick mode " + FailureModes[thickPlateFailureMode];
+            }
 
-            FailureMode = FailureModes[Capacities.IndexOf(Capacities.Min())];
+            //FailureMode = FailureModes[Capacities.IndexOf(Capacities.Min())];
+            //FailureMode = FailureModes[Capacities.IndexOf(Capacities.Min())];
 
             Capacity = Capacity * 2;
-
-            FailureMode = FailureModes[Capacities.IndexOf(Capacities.Min())];
 
 			ComputeStiffnesses();
 		}
