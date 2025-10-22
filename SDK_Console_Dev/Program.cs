@@ -98,7 +98,7 @@ namespace SDK_Console_Dev
             spacings /= 1000;
 
             FastenerNail Nail = new FastenerNail(FastenerNail.NailTypes.AnnularRing, diam, 60, 600, false, 2550, 2 * diam, 7, 20, 48, 2550);
-            var connection1 = new TimberTimberSingleShear(Nail, OSB, 12, 0, softWood,45, 0, true);
+            var connection1 = new TimberTimberSingleShear(Nail, OSB, 16, 0, softWood,45, 0, true);
             //var connection2 = new SingleOuterSteelPlate(Nail, 6, 0, softWood, 40, true);
             Nail.ComputeSpacings(0, connection1);
             Console.WriteLine("Timber/timber");
