@@ -17,11 +17,14 @@ This project was originally supported by knippershelbig GmbH and is now maintain
   
    
 ## Getting started
-The latest Excel connector can be found [here](https://github.com/knippershelbig/StructuralDesignKit_Holz/releases)
+The latest Excel connector can be found [here](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/releases)
 
-The installation steps can be found in the [wiki](https://github.com/knippershelbig/StructuralDesignKit_Holz/wiki/Getting-Started)
+The installation steps can be found in the [wiki](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/wiki/Getting-Started-with-SDK_Excel)
 
 The latest Grasshopper connector can be found here _(to come)_
+
+In the meantime, you can use the SDK_T with C# components in GH, see examples [here](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/tree/master/GrasshopperDemo)
+
 
 
 ## Authors
@@ -29,11 +32,11 @@ The project has been started and is currently maintained by Guillaume Caussarieu
 Each contributor holds copyright over their respective contributions. The project versioning (Git) records all such contribution source information. See [LICENSE.md](https://github.com/Gcaussarieu/StructuralDesignKit/blob/master/LICENSE) and COPYRIGHT_HEADER.
 
 ## Disclaimer
-The library and its associated connectors are a **work in progress**. The different outputs should be critically checked. Even if great care is taken to deliver validated functionalities, **the code/Software is PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE**. See the [LICENSE.md](https://github.com/Gcaussarieu/StructuralDesignKit/blob/master/LICENSE) file for more details.
+The library and its associated connectors are a **work in progress**. The different outputs should be critically checked. Even if great care is taken to deliver validated functionalities, **the code/Software is PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE**. See the [LICENSE.md](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/blob/master/LICENSE.txt) file for more details.
 
 ## Contribution / Feedback
-Please feel free to send any feedback. You can contact us by email or use the [github issue tracker](https://github.com/knippershelbig/StructuralDesignKit_Holz/issues)
-If you want to participate in making timber engineering better for everyone, get in touch or simply use the GitHub Pull Request
+Please feel free to send any feedback. You can contact us by email or use the [github discussion panel](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/discussions)
+If you want to participate in making timber engineering better for everyone, please get in touch or simply use the GitHub Pull Request
 
 ## Support / Contact
 For any question, please contact g.caussarieu@iterations-engineering.com
@@ -45,7 +48,9 @@ The Excel connector makes extensive use of the great work of Govert van Drimmele
 The list of the current features and the features in development can be found here _(to come)_
 
 ## Examples
-The list of example files can be found here _(to come)_
+The list of example files can be found below :
+
+[Grasshopper using C#](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/tree/master/GrasshopperDemo)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Gcaussarieu/StructuralDesignKit/blob/master/LICENSE) file for more details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Gcaussarieu/StructuralDesignKit_Timber/blob/master/LICENSE.txt) file for more details
